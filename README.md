@@ -1,25 +1,37 @@
-# Communication in Multi-Objective Normal-Form Games
-This repo consists of five different types of agents that we have used in our study of communication in multi-objective normal-form games. The settings that involve communication do this following a leader-follower model as seen in Stackelberg games. 
-In such settings, agents switch in a round-robin fashion between being the leader and communicating something and being the follower and observing the communication.
+# Commitment and Cyclic Strategies in Multi-Objective Games
+This repo consists of different agents that were used in our study of commitment and cyclic strategies in multi-objective normal-form games. We model two-player multi-objective Stackelberg games. This code is forked from a previous repository [on communication in multi-objective normal-form games](https://github.com/wilrop/communication_monfg). 
 
-## No communication setting
-In this setting two agents play a normal-form game for a certain amount of episodes. This experiment serves as a baseline for all other experiments.
+Below, we detail the two new agents that were specifically designed for this work.
 
-## Cooperative action communication setting
-In this setting, agents communicate the next action that they will play. The follower uses this message to pre-update their policy. This setting is similar to Iterated Best Response and attempts to find the optimal joint policy.
+## Pessimistic Agent
+The pessimistic agent intends to simulate a malicious follower aiming to minimise the leaders utility. Note that this agent can be turned into a positive agent by setting the flag to positive. When this is enabled, the agent will focus only on optimising their own utility.
 
-## Competitive action communication setting
-This setting places the agents in a more competitive environment. This means that agents learn a specific best-response policy to every possible message. As such, agent's are not optimising for an optimal joint policy, but rather are acting in a self-interested manner.
-
-## Cooperative policy communication setting
-This setting follows the same dynamics as the cooperative action communication setting, but communicates the entire policy instead of the next action that will be played.
-
-## Optional communication setting
-The last setting gives agents the chance to learn for themselves whether communication helps them. All agents learn a top-level policy that chooses whether they will communicate when they are the leader or not. They also have two low-level agents, one "no communication agent" and one agent that does communicate. Which agent that is used as the communicating agent, is completely optional. When agents choose to communicate, they utilise their lower level communicating agent. When agents opt out of communication, they utilise their lower level no communication agent.
+## Non-Stationary Agent
+The leader learns a stochastic policy but commits only to one action in each round. The follower learns a non-stationary policy that is a best-response to the leader's commitment policy *as a whole*. 
 
 ## Getting Started
 
-Experiments can be run from the `MONFG.py` file. There are 5 MONFGs available, having different equilibria properties under the SER optimisation criterion, using the specified non linear utility functions. You can also specify the type of experiment to run and other parameters. 
+Experiments can be run from the `MONFG.py` file with additional parameters. 
+```
+usage: MONFG.py [-h] [--game GAME] [--u U [U ...]] [--experiment EXPERIMENT]
+                [--alternate ALTERNATE] [--runs RUNS] [--episodes EPISODES]
+                [--rollouts ROLLOUTS] [--opt_init]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --game GAME           which MONFG game to play
+  --u U [U ...]         Which utility functions to use per player
+  --experiment EXPERIMENT
+                        The experiment to run.
+  --alternate ALTERNATE
+                        Alternate commitment between players.
+  --runs RUNS           number of trials
+  --episodes EPISODES   number of episodes
+  --rollouts ROLLOUTS   Rollout period for the policies
+  --opt_init            optimistic initialization
+```
+
+There are 11 MONFGs and 4 utility functions available to pick from. 
 
 ## License
 
