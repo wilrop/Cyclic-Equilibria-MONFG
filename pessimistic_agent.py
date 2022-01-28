@@ -70,7 +70,7 @@ def best_response(u, player, payoff_matrix, joint_strategy):
     return best_response
 
 
-class BestResponseAgent:
+class PessimisticAgent:
     """
     This class represents an agent that uses the SER multi-objective optimisation criterion.
     """

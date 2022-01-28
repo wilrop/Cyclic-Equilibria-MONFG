@@ -11,7 +11,7 @@ from comp_action_agent import CompActionAgent
 from coop_action_agent import CoopActionAgent
 from coop_policy_agent import CoopPolicyAgent
 from optional_com_agent import OptionalComAgent
-from best_response_agent import BestResponseAgent
+from pessimistic_agent import PessimisticAgent
 from non_stationary_agent import NonStationaryAgent
 
 
@@ -145,8 +145,8 @@ def reset(experiment, num_agents, u_lst, num_actions, num_objectives, alpha_q, a
             new_agent = NoComAgent(ag, u, du, alpha_q, alpha_theta, alpha_decay, num_actions, num_objectives, opt)
         elif experiment == 'comp_action':
             new_agent = CompActionAgent(ag, u, du, alpha_q, alpha_theta, alpha_decay, num_actions, num_objectives, opt)
-        elif experiment == 'best_response':
-            new_agent = BestResponseAgent(ag, u, du, alpha_q, alpha_theta, alpha_decay, num_actions, num_objectives, opt)
+        elif experiment == 'pessimistic':
+            new_agent = PessimisticAgent(ag, u, du, alpha_q, alpha_theta, alpha_decay, num_actions, num_objectives, opt)
         elif experiment == 'non_stationary':
             new_agent = NonStationaryAgent(ag, u, du, alpha_q, alpha_theta, alpha_decay, num_actions, num_objectives, opt)
         elif experiment == 'coop_action':
@@ -306,10 +306,10 @@ def save_data(path, name, returns_log, action_probs_log, com_probs_log, state_di
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--game', type=str, default='game9', help="which MONFG game to play")
+    parser.add_argument('--game', type=str, default='game1', help="which MONFG game to play")
     parser.add_argument('--u', type=str, default=['u1', 'u2'], nargs='+',
                         help="Which utility functions to use per player")
-    parser.add_argument('--experiment', type=str, default='comp_action', help='The experiment to run.')
+    parser.add_argument('--experiment', type=str, default='pessimistic', help='The experiment to run.')
     parser.add_argument('--alternate', type=bool, default=False, help="Alternate commitment between players.")
     parser.add_argument('--runs', type=int, default=100, help="number of trials")
     parser.add_argument('--episodes', type=int, default=5000, help="number of episodes")
