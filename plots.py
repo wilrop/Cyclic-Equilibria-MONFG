@@ -1,4 +1,3 @@
-import os
 import argparse
 import matplotlib
 import matplotlib.pyplot as plt
@@ -51,15 +50,10 @@ def plot_returns(path_plots, filetype, game, name, episodes, ag1_data, ag2_data)
     if game == 'game7':
         x_data = np.arange(0, 5000, 5)
         y_constant = np.full(len(x_data), 0)
-        ax = sns.lineplot(x=x_data, y=y_constant, linewidth=2.0, linestyle='--', label='Lower bound', color='grey')
+        ax = sns.lineplot(x=x_data, y=y_constant, linewidth=2.0, linestyle='--', label='Lowest NE', color='grey')
 
-    if episodes > 5000:
-        scale = 'log'
-    else:
-        scale = 'linear'
-    ax.set(ylabel='Scalarised Expected Returns', xscale=scale)
+    ax.set(ylabel='Scalarised Expected Returns')
 
-    # ax.set_ylim(1, 40)
     if game in ['game1', 'game2']:
         ax.set_xlim(0, 1000)
     else:
