@@ -30,7 +30,6 @@ class NonStationaryAgent:
         self.msg_policy = np.full(num_actions, 1 / num_actions)
         self.counter_thetas = np.zeros((num_actions, num_actions))
         self.counter_policies = np.full((num_actions, num_actions), 1 / num_actions)
-        self.opponent_policy = np.ones(num_actions)
         self.communicating = False
 
     def update(self, communicator, message, actions, reward):
@@ -50,13 +49,11 @@ class NonStationaryAgent:
             self.msg_theta += self.alpha_theta * self.grad_obj_func_leader(self.msg_theta, self.msg_q_table)
             self.msg_policy = self.update_policy(self.msg_theta)
         else:
-            self.update_opponent_policy(message)
             if self.id == 0:
                 expected_q = self.payoffs_table.transpose((1, 0, 2))
             else:
                 expected_q = self.payoffs_table
-            opponent_policy = self.opponent_policy / np.sum(self.opponent_policy)
-            self.counter_thetas += self.alpha_theta * self.grad_obj_func_follower(self.counter_thetas, expected_q, opponent_policy)
+            self.counter_thetas += self.alpha_theta * self.grad_obj_func_follower(self.counter_thetas, expected_q, message)
             for idx, theta in enumerate(self.counter_thetas):
                 self.counter_policies[idx] = self.update_policy(theta)
 
@@ -128,13 +125,6 @@ class NonStationaryAgent:
         """
         self.alpha_q *= self.alpha_decay
         self.alpha_theta *= self.alpha_decay
-
-    def update_opponent_policy(self, message):
-        """
-        This function updates an opponent policy.
-        :return: /
-        """
-        self.opponent_policy[message] += 1
 
     def select_action(self, message):
         """
