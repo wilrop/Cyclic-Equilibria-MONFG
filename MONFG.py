@@ -234,6 +234,8 @@ def run_experiment(experiment, runs, episodes, rollouts, payoff_matrices, u, alt
             last_actions = np.array(ep_actions)[:, -1]
             last_payoffs = np.array(ep_payoffs)[:, -1]
             last_message = ep_messages[-1]
+            if experiment == 'non_stationary':
+                last_message = communicating_agent.msg_policy
             update(agents, communicator, last_message, last_actions, last_payoffs)  # Update the agents.
 
             # Get the necessary results from this episode.
