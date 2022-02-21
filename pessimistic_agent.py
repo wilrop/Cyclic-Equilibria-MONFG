@@ -116,7 +116,7 @@ class PessimisticAgent:
             self.msg_theta = theta
             self.msg_policy = policy
         else:
-            self.epsilon = min(0.1, self.epsilon * self.epsilon_decay)
+            self.epsilon = min(0.1, self.epsilon * self.epsilon_decay)  # TODO: Change this to max!
 
         self.update_parameters()
         self.calculated = False
