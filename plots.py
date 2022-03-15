@@ -51,6 +51,7 @@ def plot_returns(path_plots, filetype, game, name, episodes, ag1_data, ag2_data)
         x_data = np.arange(0, 5000, 5)
         y_constant = np.full(len(x_data), 0)
         ax = sns.lineplot(x=x_data, y=y_constant, linewidth=2.0, linestyle='--', label='Lowest NE', color='grey')
+        plt.legend(bbox_to_anchor=(0.98, 0.9), loc='upper right', borderaxespad=0)  # Fix the legend to avoid overlap.
 
     ax.set(ylabel='Scalarised Expected Returns')
 
