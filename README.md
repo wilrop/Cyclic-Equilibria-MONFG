@@ -35,6 +35,5 @@ There are 11 MONFGs and 4 utility functions available to pick from.
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details
-
+This project is licensed under the terms of the MIT license.
 
