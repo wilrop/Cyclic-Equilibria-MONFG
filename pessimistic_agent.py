@@ -75,7 +75,7 @@ class PessimisticAgent:
     This class represents an agent that uses the SER multi-objective optimisation criterion.
     """
 
-    def __init__(self, id, u, du, alpha_q, alpha_theta, alpha_decay, num_actions, num_objectives, opt=False, epsilon=1, epsilon_decay=0.995):
+    def __init__(self, id, u, du, alpha_q, alpha_theta, alpha_decay, num_actions, num_objectives, opt=False, epsilon=1, epsilon_decay=0.95):
         self.id = id
         self.u = u
         self.du = du
@@ -116,7 +116,7 @@ class PessimisticAgent:
             self.msg_theta = theta
             self.msg_policy = policy
         else:
-            self.epsilon = min(0.1, self.epsilon * self.epsilon_decay)  # TODO: Change this to max!
+            self.epsilon = max(0.01, self.epsilon * self.epsilon_decay)
 
         self.update_parameters()
         self.calculated = False
